@@ -13,7 +13,6 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
-
 public class DBUtil 
 {
 	public static Connection getConnection() throws ClassNotFoundException, SQLException

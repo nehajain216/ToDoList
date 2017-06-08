@@ -36,6 +36,9 @@ public class MainPageServlet extends HttpServlet {
 		{
 			String page = "MainPage.jsp";
 			HttpSession session = request.getSession();
+			request.setAttribute("myname1", "siva");
+			session.setAttribute("myname", "neha");			
+			
 			User loginUser = (User) session.getAttribute("USER_LOGIN");	
 			int id = loginUser.getId();
 			TodoService todoService = new TodoService();

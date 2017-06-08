@@ -1,29 +1,33 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<%@page import="java.util.List"%>
-<%@page import="sample.Todo"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Welcome to Home Page</title>
 </head>
 <body>
-<h3>To-do List</h3>
-	<table border="1" with="600">
+	<h3>To-do List</h3>
+	<c:set value="prasad" var="myname"></c:set>
+	${myname}
+	<table border="1" width="600">
 		<tr>
 			<td>Title</td>
 			<td>Description</td>
-			<td><a href="NewToDoList.jsp">New To-Do-List</a> </td>	
+			<td colspan="2"><a href="NewToDoList.jsp">New To-Do-List</a></td>
 		</tr>
-		<tbody>
-			<%
-			List<Todo> toDoListData = (List<Todo>)request.getAttribute("toDoList");				
-				for(Todo todo : toDoListData){
-						out.print("<tr><td>"+todo.getTitle()+"</td><td>"+todo.getDescription()+"</td><td><a href=\"UpdateToDoServlet?id="+todo.getId()+"\">Edit</a></td><td><a href=\"DeleteToDoServlet?id="+todo.getId()+"\">Delete</a></td></tr>");
-				}
-			%>			 
-		</tbody>		
+
+		<c:if test="${toDoList.isEmpty()}">
+			<tr>
+				<td colspan="4">No Todo found</td>
+			</tr>
+		</c:if>
+		<c:forEach var="todo" items="${toDoList}">
+			<tr>
+				<td><c:out value="${todo.title}" /></td>
+				<td><c:out value="${todo.description}" /></td>
+				<td><a href="UpdateToDoServlet?id=${todo.id}">Edit</a></td>
+				<td><a href="DeleteToDoServlet?id=${todo.id}">Delete</a></td>
+			</tr>
+		</c:forEach>
 	</table>
 </body>
 </html>
